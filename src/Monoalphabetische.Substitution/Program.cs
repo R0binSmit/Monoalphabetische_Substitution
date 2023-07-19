@@ -43,14 +43,34 @@ public class Program
     public static void EncryptMode(int key, string message)
     {
         Message messageObj = new Message() { Key = key, DecryptedMessagae = message };
-        Encrypt._Encrypt(messageObj);
+
+        try
+        {
+            Encrypt._Encrypt(messageObj);
+        }
+        catch(ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+            return;
+        }
+
         Console.WriteLine($"Encrypted text: {messageObj.EncryptedMessage}");
     }
 
     public static void DecryptMode(int key, string message)
     {
         Message messageObj = new Message() { Key = key, EncryptedMessage= message };
-        Decrypt._Decrypt(messageObj);
+
+        try
+        {
+            Decrypt._Decrypt(messageObj);
+        }
+        catch(ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+            return;
+        }
+
         Console.WriteLine($"Decrypted text: {messageObj.DecryptedMessagae}");
     }
 }

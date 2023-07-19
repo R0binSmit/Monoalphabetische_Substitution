@@ -26,11 +26,14 @@ public class Program
             mode = Console.ReadLine();
         }
 
+        Console.WriteLine($"Input text: {message.ToUpper()}");
+
         if(mode == "E")
         {
             EncryptMode(key, message);
         }
-        else if(mode == "D") { }
+        
+        if(mode == "D")
         {
             DecryptMode(key, message);
         }
@@ -48,7 +51,7 @@ public class Program
     {
         Message messageObj = new Message() { Key = key, EncryptedMessage= message };
         Decrypt._Decrypt(messageObj);
-        Console.WriteLine(messageObj.DecryptedMessagae);
+        Console.WriteLine($"Decrypted text: {messageObj.DecryptedMessagae}");
     }
 }
 

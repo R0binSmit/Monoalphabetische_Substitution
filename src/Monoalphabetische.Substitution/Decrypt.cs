@@ -36,9 +36,9 @@ public static class Decrypt
         int baseIndex = Array.IndexOf(MessageHelper.Alphabeth, character);
         int newIndex = baseIndex - key;
 
-        if (newIndex <= 0)
+        if (newIndex < 0)
         {
-            newIndex += MessageHelper.Alphabeth.Length;
+            newIndex = MessageHelper.Alphabeth.Length + newIndex;
         }
 
         return newIndex;

@@ -1,4 +1,6 @@
-﻿namespace Monoalphabetische.Substitution;
+﻿using System.Security.Cryptography;
+
+namespace Monoalphabetische.Substitution;
 
 public class Program
 {
@@ -6,6 +8,7 @@ public class Program
     {
         string? mode = null;
         string? message = null;
+        Message? encryptMessage = null;
         int key = -1;
 
         while (message == string.Empty || message == null)
@@ -30,7 +33,7 @@ public class Program
 
         if(mode == "E")
         {
-            EncryptMode(key, message);
+            encryptMessage = EncryptMode(key, message);
         }
         
         if(mode == "D")
@@ -38,9 +41,13 @@ public class Program
             DecryptMode(key, message);
         }
 
+        if(encryptMessage != null && string.IsNullOrWhiteSpace(encryptMessage.EncryptedMessage) == false)
+        {
+            Analyse.AnalyseMessage(encryptMessage.EncryptedMessage);
+        }
     }
 
-    public static void EncryptMode(int key, string message)
+    public static Message? EncryptMode(int key, string message)
     {
         Message messageObj = new Message() { Key = key, DecryptedMessagae = message };
 
@@ -51,13 +58,14 @@ public class Program
         catch(ArgumentException e)
         {
             Console.WriteLine(e.Message);
-            return;
+            return null;
         }
 
         Console.WriteLine($"Encrypted text: {messageObj.EncryptedMessage}");
+        return messageObj;
     }
 
-    public static void DecryptMode(int key, string message)
+    public static Message? DecryptMode(int key, string message)
     {
         Message messageObj = new Message() { Key = key, EncryptedMessage= message };
 
@@ -68,10 +76,11 @@ public class Program
         catch(ArgumentException e)
         {
             Console.WriteLine(e.Message);
-            return;
+            return null;
         }
 
         Console.WriteLine($"Decrypted text: {messageObj.DecryptedMessagae}");
+        return messageObj;
     }
 }
 

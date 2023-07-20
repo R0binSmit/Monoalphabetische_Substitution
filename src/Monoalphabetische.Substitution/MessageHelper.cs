@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Monoalphabetische.Substitution;
+﻿namespace Monoalphabetische.Substitution;
 
 public static class MessageHelper
 {

@@ -1,4 +1,4 @@
-﻿namespace Monoalphabetische.Substitution;
+﻿namespace Monoalphabetische.Application;
 
 public static class MessageHelper
 {

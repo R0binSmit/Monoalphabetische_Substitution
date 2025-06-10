@@ -1,4 +1,11 @@
-src/Monoalphabetische.Substitution/bin/*
-src/Monoalphabetische.Substitution/obj/*
-src/.vs/*
-.vs/*
+# Build outputs
+**/bin/
+**/obj/
+
+# Visual Studio directories
+.vs/
+**/.vs/
+
+# User specific files
+*.user
+*.suo

@@ -4,7 +4,7 @@ namespace Monoalphabetische.Application;
 
 public static class Encrypt
 {
-    public static void _Encrypt(Message message)
+    public static void Process(Message message)
     {
         if (!message.IsValid)
         {

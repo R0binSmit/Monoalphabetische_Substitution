@@ -3,8 +3,8 @@
 namespace Monoalphabetische.Application;
 
 public static class Decrypt
-{ 
-    public static void _Decrypt(Message message)
+{
+    public static void Process(Message message)
     {
         if (!message.IsValid)
         {

@@ -1,4 +1,6 @@
-src/Monoalphabetische.Substitution/bin/*
-src/Monoalphabetische.Substitution/obj/*
+src/Monoalphabetische.Cli/bin/*
+src/Monoalphabetische.Cli/obj/*
+src/Monoalphabetische.Application/bin/*
+src/Monoalphabetische.Application/obj/*
 src/.vs/*
 .vs/*

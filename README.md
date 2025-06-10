@@ -3,7 +3,7 @@
 Dieses Projekt stellt eine einfache Konsolenanwendung dar, die eine monoalphabetische Substitution implementiert. Nachrichten lassen sich damit sowohl verschlüsseln als auch entschlüsseln.
 
 ## Kompilieren
-Voraussetzung für das Bauen und Ausführen ist das .NET SDK (Version 7.0 oder neuer). Das Projekt wird aus dem Repository-Verzeichnis heraus kompiliert:
+Voraussetzung für das Bauen und Ausführen ist das .NET SDK (Version 9.0 oder neuer). Das Projekt wird aus dem Repository-Verzeichnis heraus kompiliert:
 
 ```bash
 dotnet build src/Monoalphabetische.Substitution

@@ -24,5 +24,5 @@ option `--skip-input` disables all prompts entirely. Modes `E` (Encrypt) and `D`
 (Decrypt) require a key. In mode `G` the key is determined by frequency analysis
 of the encrypted text and may therefore be omitted.
 
-The command line options are parsed using `System.CommandLine` and validated
+The command line options are parsed using `CommandLineParser` and validated
 with `FluentValidation`.

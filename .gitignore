@@ -1,6 +1,11 @@
-src/Monoalphabetische.Cli/bin/*
-src/Monoalphabetische.Cli/obj/*
-src/Monoalphabetische.Application/bin/*
-src/Monoalphabetische.Application/obj/*
-src/.vs/*
-.vs/*
+# Build outputs
+**/bin/
+**/obj/
+
+# Visual Studio directories
+.vs/
+**/.vs/
+
+# User specific files
+*.user
+*.suo

@@ -18,7 +18,7 @@ public static class MessageHelper
             return false;
         }
 
-        if (!_isMessageValid(message.DecryptedMessagae))
+        if (!_isMessageValid(message.DecryptedMessage))
         {
             return false;
         }

@@ -16,9 +16,10 @@ public class Message
             }
         }
     }
-    public string? DecryptedMessagae {
+    public string? DecryptedMessage
+    {
         get { return _decryptedMessage; }
-        set 
+        set
         {
             if (value != null)
             {

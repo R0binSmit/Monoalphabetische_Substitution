@@ -1,10 +1,28 @@
 using Monoalphabetische.Application;
-using CommandLine;
+using System.CommandLine;
 
 namespace Monoalphabetische.Cli;
 
-public partial class Program
-{
+        var messageOption = new Option<string?>("--message", "Message to encrypt or decrypt");
+        var keyOption = new Option<int?>("--key", () => null, "Key for the substitution");
+        var modeOption = new Option<string?>("--mode", "E=Encrypt, D=Decrypt, G=Guess");
+        var skipInputOption = new Option<bool>("--skip-input", "Skip interactive input");
+
+        var rootCommand = new RootCommand
+        {
+            messageOption,
+            keyOption,
+            modeOption,
+            skipInputOption
+        };
+
+        rootCommand.SetHandler((string? message, int? key, string? mode, bool skipInput) =>
+        {
+            var options = new CliOptions { Message = message, Key = key, Mode = mode, SkipInput = skipInput };
+            Environment.ExitCode = RunWithOptions(options);
+        }, messageOption, keyOption, modeOption, skipInputOption);
+
+        return rootCommand.Invoke(args);
     public static int Main(string[] args)
     {
         return Parser.Default.ParseArguments<CliOptions>(args)
@@ -77,13 +95,13 @@ public partial class Program
             else if (options.Mode == "D")
             {
                 result = service.Decrypt(options.Key!.Value, options.Message!);
-                Console.WriteLine($"Decrypted text: {result.DecryptedMessagae}");
+                Console.WriteLine($"Decrypted text: {result.DecryptedMessage}");
             }
             else if (options.Mode == "G")
             {
                 result = service.DecryptWithGuessedKey(options.Message!);
                 Console.WriteLine($"Guessed Key: {result.Key}");
-                Console.WriteLine($"Decrypted text: {result.DecryptedMessagae}");
+                Console.WriteLine($"Decrypted text: {result.DecryptedMessage}");
             }
         }
         catch (ArgumentException e)
@@ -101,16 +119,9 @@ public partial class Program
 
     private class CliOptions
     {
-        [Option("message", HelpText = "Message to encrypt or decrypt")]
         public string? Message { get; set; }
-
-        [Option("key", HelpText = "Key for the substitution")]
         public int? Key { get; set; }
-
-        [Option("mode", HelpText = "E=Encrypt, D=Decrypt, G=Guess")]
         public string? Mode { get; set; }
-
-        [Option("skip-input", HelpText = "Skip interactive input")]
         public bool SkipInput { get; set; }
     }
 }

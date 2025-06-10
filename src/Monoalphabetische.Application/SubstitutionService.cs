@@ -4,7 +4,7 @@ public class SubstitutionService
 {
     public Message Encrypt(int key, string message)
     {
-        var msg = new Message { Key = key, DecryptedMessagae = message };
+        var msg = new Message { Key = key, DecryptedMessage = message };
         Application.Encrypt.Process(msg);
         return msg;
     }

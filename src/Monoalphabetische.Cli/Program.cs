@@ -1,10 +1,9 @@
-using FluentValidation;
 using Monoalphabetische.Application;
 using CommandLine;
 
 namespace Monoalphabetische.Cli;
 
-public class Program
+public partial class Program
 {
     public static int Main(string[] args)
     {
@@ -92,7 +91,7 @@ public class Program
             Console.WriteLine(e.Message);
         }
 
-        if (result != null && !string.IsNullOrWhiteSpace(result.EncryptedMessage))
+        if (result != null && !string.IsNullOrWhiteSpace(result.EncryptedMessage) && options.Mode == "G")
         {
             Analyse.AnalyseMessage(result.EncryptedMessage);
         }
@@ -111,23 +110,5 @@ public class Program
 
         [Option("skip-input", HelpText = "Skip interactive input")]
         public bool SkipInput { get; set; }
-    }
-
-    private class CliOptionsValidator : AbstractValidator<CliOptions>
-    {
-        public CliOptionsValidator()
-        {
-            RuleFor(x => x.Message)
-                .NotEmpty().WithMessage("Message is required.");
-
-            RuleFor(x => x.Mode)
-                .Must(m => m == "E" || m == "D" || m == "G")
-                .WithMessage("Mode must be E, D or G.");
-
-            When(x => x.Mode == "E" || x.Mode == "D", () =>
-            {
-                RuleFor(x => x.Key).NotNull().WithMessage("Key is required when mode is E or D.");
-            });
-        }
     }
 }

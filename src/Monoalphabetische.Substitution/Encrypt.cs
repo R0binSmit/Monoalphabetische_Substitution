@@ -6,7 +6,7 @@ public static class Encrypt
 {
     public static void _Encrypt(Message message)
     {
-        if(message.IsValid == false)
+        if (!message.IsValid)
         {
             throw new ArgumentException("Message is invalid. Maybe the encrypted/decrypted message contains an unsupported character or an unsupported key.");
         }

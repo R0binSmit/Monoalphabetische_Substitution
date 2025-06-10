@@ -13,17 +13,17 @@ public static class MessageHelper
 
     public static bool IsValid(Message message)
     {
-        if(_isMessageValid(message.EncryptedMessage) == false)
+        if (!_isMessageValid(message.EncryptedMessage))
         {
             return false;
         }
 
-        if(_isMessageValid(message.DecryptedMessagae) == false)
+        if (!_isMessageValid(message.DecryptedMessagae))
         {
             return false;
         }
 
-        if(_isKeyValid(message.Key) == false)
+        if (!_isKeyValid(message.Key))
         {
             return false;
         }
@@ -38,7 +38,7 @@ public static class MessageHelper
         bool isValid = true;
         foreach (char character in message)
         {
-            if (Alphabeth.Contains(character) == false)
+            if (!Alphabeth.Contains(character))
             {
                 return false;
             }
@@ -50,6 +50,6 @@ public static class MessageHelper
     private static bool _isKeyValid(int? key)
     {
         if (key == null) return true;
-        return key >= Alphabeth.Length ? false : true;
+        return !(key >= Alphabeth.Length);
     }
 }

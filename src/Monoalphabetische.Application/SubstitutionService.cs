@@ -15,4 +15,12 @@ public class SubstitutionService
         Application.Decrypt.Process(msg);
         return msg;
     }
+
+    public Message DecryptWithGuessedKey(string message)
+    {
+        int key = Analyse.GuessKey(message);
+        var msg = new Message { Key = key, EncryptedMessage = message };
+        Application.Decrypt.Process(msg);
+        return msg;
+    }
 }

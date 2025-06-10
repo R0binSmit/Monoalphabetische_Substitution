@@ -91,7 +91,9 @@ public partial class Program
             Console.WriteLine(e.Message);
         }
 
-        if (result != null && !string.IsNullOrWhiteSpace(result.EncryptedMessage) && options.Mode == "G")
+        if (options.Mode == "G" &&
+            result != null &&
+            !string.IsNullOrWhiteSpace(result.EncryptedMessage))
         {
             Analyse.AnalyseMessage(result.EncryptedMessage);
         }

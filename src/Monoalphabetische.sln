@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoalphabetische.Cli", "Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoalphabetische.Application", "Monoalphabetische.Application\Monoalphabetische.Application.csproj", "{D70BA1CF-9383-4310-B63C-769EC1211B89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoalphabetische.Application.Tests", "Monoalphabetische.Application.Tests\Monoalphabetische.Application.Tests.csproj", "{0897ca49-7734-41a8-b1c2-636c49af73c9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{D70BA1CF-9383-4310-B63C-769EC1211B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D70BA1CF-9383-4310-B63C-769EC1211B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D70BA1CF-9383-4310-B63C-769EC1211B89}.Release|Any CPU.Build.0 = Release|Any CPU
+                {0897ca49-7734-41a8-b1c2-636c49af73c9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {0897ca49-7734-41a8-b1c2-636c49af73c9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {0897ca49-7734-41a8-b1c2-636c49af73c9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {0897ca49-7734-41a8-b1c2-636c49af73c9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

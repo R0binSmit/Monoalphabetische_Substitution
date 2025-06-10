@@ -13,12 +13,12 @@ public static class Decrypt
 
         if (string.IsNullOrWhiteSpace(message.EncryptedMessage))
         {
-            throw new ArgumentException("Can't encrypt message because there is no decrypted message defined.");
+            throw new ArgumentException("Can't decrypt message because there is no encrypted message defined.");
         }
 
         if (message.Key == null)
         {
-            throw new ArgumentException("Can't encrypt message because there is not key given.");
+            throw new ArgumentException("Can't decrypt message because there is no key given.");
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -28,7 +28,7 @@ public static class Decrypt
             stringBuilder.Append(MessageHelper.Alphabeth[index]);
         }
 
-        message.DecryptedMessagae = stringBuilder.ToString();
+        message.DecryptedMessage = stringBuilder.ToString();
     }
 
     private static int getNewAlphabethIndex(char character, int key)

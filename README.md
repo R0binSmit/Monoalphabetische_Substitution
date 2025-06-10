@@ -1,19 +1,28 @@
-# Monoalphabetische Substitution
+# Monoalphabetic Substitution
 
-Die Anwendung besteht aus einer Bibliothek **Monoalphabetische.Application** mit der eigentlichen Verschlüsselungslogik und einem Konsolenprogramm **Monoalphabetische.Cli**. Nachrichten lassen sich damit sowohl verschlüsseln als auch entschlüsseln.
+This repository contains the library **Monoalphabetische.Application** with the
+core encryption logic and the console application **Monoalphabetische.Cli**. It
+allows you to encrypt and decrypt messages using a simple substitution cipher.
 
-## Kompilieren
-Voraussetzung für das Bauen und Ausführen ist das .NET SDK (Version 9.0 oder neuer). Das Projekt wird aus dem Repository-Verzeichnis heraus kompiliert:
+## Build
+To build and run the solution you need the .NET SDK (version 9.0 or newer). Run
+the following command from the repository root:
 
 ```bash
 dotnet build src/Monoalphabetische.sln
 ```
 
-## Ausführen
-Die Anwendung starten Sie mit:
+## Usage
+Launch the program with:
 
 ```bash
-dotnet run --project src/Monoalphabetische.Cli
+dotnet run --project src/Monoalphabetische.Cli -- [--message <text>] [--key <number>] [--mode <E|D|G>] [--skip-input]
 ```
 
-Beim Start fragt das Programm nach der Nachricht, dem Schlüssel und dem Modus (Verschlüsselung oder Entschlüsselung) und zeigt das Ergebnis im Anschluss an.
+Providing `--message`, `--key` and `--mode` skips the interactive prompts. The
+option `--skip-input` disables all prompts entirely. Modes `E` (Encrypt) and `D`
+(Decrypt) require a key. In mode `G` the key is determined by frequency analysis
+of the encrypted text and may therefore be omitted.
+
+The command line options are parsed using `System.CommandLine` and validated
+with `FluentValidation`.

@@ -11,18 +11,18 @@ public static class Encrypt
             throw new ArgumentException("Message is invalid. Maybe the encrypted/decrypted message contains an unsupported character or an unsupported key.");
         }
 
-        if(string.IsNullOrWhiteSpace(message.DecryptedMessagae))
+        if(string.IsNullOrWhiteSpace(message.DecryptedMessage))
         {
             throw new ArgumentException("Can't encrypt message because there is no decrypted message defined.");
         }
 
         if(message.Key == null)
         {
-            throw new ArgumentException("Can't encrypt message because there is not key given.");
+            throw new ArgumentException("Can't encrypt message because there is no key given.");
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        foreach (char character in message.DecryptedMessagae) 
+        foreach (char character in message.DecryptedMessage)
         {
             int index = getNewAlphabethIndex(character, Convert.ToInt32(message.Key));
             stringBuilder.Append(MessageHelper.Alphabeth[index]);

@@ -25,7 +25,7 @@ public static class Analyse
         }
     }
 
-    public static void AnalyseMessage(string message)
+    public static int GuessKey(string message)
     {
         if(message.Length < 30)
         {
@@ -39,6 +39,12 @@ public static class Analyse
         int indexMostCommonLetter = Array.IndexOf(MessageHelper.Alphabeth, alphabeth[0].Value);
         int indexLetterE = Array.IndexOf(MessageHelper.Alphabeth, 'E');
         int possibleKey = Math.Abs(indexMostCommonLetter - indexLetterE);
+        return possibleKey;
+    }
+
+    public static void AnalyseMessage(string message)
+    {
+        int possibleKey = GuessKey(message);
         Console.WriteLine($"Possible Key: { possibleKey }");
     }
 }

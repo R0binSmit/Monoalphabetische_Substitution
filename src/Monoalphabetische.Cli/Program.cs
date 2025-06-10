@@ -1,6 +1,6 @@
 using FluentValidation;
 using Monoalphabetische.Application;
-using System.CommandLine;
+using CommandLine;
 
 namespace Monoalphabetische.Cli;
 
@@ -8,72 +8,57 @@ public class Program
 {
     public static int Main(string[] args)
     {
-        var messageOption = new Option<string?>("--message", "Message to encrypt or decrypt");
-        var keyOption = new Option<int?>("--key", () => null, "Key for the substitution");
-        var modeOption = new Option<string?>("--mode", "E=Encrypt, D=Decrypt, G=Guess");
-        var skipInputOption = new Option<bool>("--skip-input", "Skip interactive input");
+        return Parser.Default.ParseArguments<CliOptions>(args)
+            .MapResult(RunWithOptions, _ => 1);
+    }
 
-        var root = new RootCommand("Monoalphabetic Substitution");
-        root.AddOption(messageOption);
-        root.AddOption(keyOption);
-        root.AddOption(modeOption);
-        root.AddOption(skipInputOption);
+    private static int RunWithOptions(CliOptions options)
+    {
+        var validator = new CliOptionsValidator();
+        var result = validator.Validate(options);
 
-        root.SetHandler((string? message, int? key, string? mode, bool skipInput) =>
+        if (!options.SkipInput)
         {
-            var options = new CliOptions
-            {
-                Message = message,
-                Key = key,
-                Mode = mode,
-                SkipInput = skipInput
-            };
-            var validator = new CliOptionsValidator();
-            var result = validator.Validate(options);
-
-            if (!skipInput)
-            {
-                while (!result.IsValid)
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
-
-                    if (string.IsNullOrWhiteSpace(options.Message))
-                    {
-                        Console.Write("Enter Message: ");
-                        options.Message = Console.ReadLine();
-                    }
-                    if (string.IsNullOrWhiteSpace(options.Mode) || !(options.Mode == "E" || options.Mode == "D" || options.Mode == "G"))
-                    {
-                        Console.Write("Select mode Encrypt (E), Decrypt (D) or Guess (G): ");
-                        options.Mode = Console.ReadLine()?.ToUpperInvariant();
-                    }
-                    if ((options.Mode == "E" || options.Mode == "D") && options.Key == null)
-                    {
-                        Console.Write("Enter Key: ");
-                        if (int.TryParse(Console.ReadLine(), out var parsedKey))
-                        {
-                            options.Key = parsedKey;
-                        }
-                    }
-                    result = validator.Validate(options);
-                }
-            }
-            else if (!result.IsValid)
+            while (!result.IsValid)
             {
                 foreach (var error in result.Errors)
                 {
                     Console.WriteLine(error.ErrorMessage);
                 }
-                return;
+
+                if (string.IsNullOrWhiteSpace(options.Message))
+                {
+                    Console.Write("Enter Message: ");
+                    options.Message = Console.ReadLine();
+                }
+                if (string.IsNullOrWhiteSpace(options.Mode) || !(options.Mode == "E" || options.Mode == "D" || options.Mode == "G"))
+                {
+                    Console.Write("Select mode Encrypt (E), Decrypt (D) or Guess (G): ");
+                    options.Mode = Console.ReadLine()?.ToUpperInvariant();
+                }
+                if ((options.Mode == "E" || options.Mode == "D") && options.Key == null)
+                {
+                    Console.Write("Enter Key: ");
+                    if (int.TryParse(Console.ReadLine(), out var parsedKey))
+                    {
+                        options.Key = parsedKey;
+                    }
+                }
+
+                result = validator.Validate(options);
             }
+        }
+        else if (!result.IsValid)
+        {
+            foreach (var error in result.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+            return 1;
+        }
 
-            Execute(options);
-        }, messageOption, keyOption, modeOption, skipInputOption);
-
-        return root.Invoke(args);
+        Execute(options);
+        return 0;
     }
 
     private static void Execute(CliOptions options)
@@ -115,9 +100,16 @@ public class Program
 
     private class CliOptions
     {
+        [Option("message", HelpText = "Message to encrypt or decrypt")]
         public string? Message { get; set; }
+
+        [Option("key", HelpText = "Key for the substitution")]
         public int? Key { get; set; }
+
+        [Option("mode", HelpText = "E=Encrypt, D=Decrypt, G=Guess")]
         public string? Mode { get; set; }
+
+        [Option("skip-input", HelpText = "Skip interactive input")]
         public bool SkipInput { get; set; }
     }
 

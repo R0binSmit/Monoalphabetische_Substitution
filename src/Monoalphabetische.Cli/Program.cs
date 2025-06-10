@@ -77,13 +77,13 @@ public partial class Program
             else if (options.Mode == "D")
             {
                 result = service.Decrypt(options.Key!.Value, options.Message!);
-                Console.WriteLine($"Decrypted text: {result.DecryptedMessagae}");
+                Console.WriteLine($"Decrypted text: {result.DecryptedMessage}");
             }
             else if (options.Mode == "G")
             {
                 result = service.DecryptWithGuessedKey(options.Message!);
                 Console.WriteLine($"Guessed Key: {result.Key}");
-                Console.WriteLine($"Decrypted text: {result.DecryptedMessagae}");
+                Console.WriteLine($"Decrypted text: {result.DecryptedMessage}");
             }
         }
         catch (ArgumentException e)
@@ -99,7 +99,7 @@ public partial class Program
         }
     }
 
-    private class CliOptions
+    private sealed class CliOptions
     {
         [Option("message", HelpText = "Message to encrypt or decrypt")]
         public string? Message { get; set; }

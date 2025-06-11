@@ -36,9 +36,9 @@ public static class Encrypt
         int baseIndex = Array.IndexOf(MessageHelper.Alphabeth, character);
         int newIndex = baseIndex + key;
 
-        if (newIndex >= MessageHelper.Alphabeth.Length)
+        if (newIndex >= MessageHelper.CharsetSize)
         {
-            newIndex -= MessageHelper.Alphabeth.Length;
+            newIndex -= MessageHelper.CharsetSize;
         }
 
         return newIndex;

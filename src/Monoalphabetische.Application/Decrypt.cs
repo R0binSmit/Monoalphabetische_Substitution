@@ -38,7 +38,7 @@ public static class Decrypt
 
         if (newIndex < 0)
         {
-            newIndex = MessageHelper.Alphabeth.Length + newIndex;
+            newIndex = MessageHelper.CharsetSize + newIndex;
         }
 
         return newIndex;

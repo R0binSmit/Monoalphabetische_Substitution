@@ -1,15 +1,16 @@
+using System.Linq;
 ﻿namespace Monoalphabetische.Application;
 
 public static class MessageHelper
 {
-    public static readonly char[] Alphabeth = new char[] {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G',
-        'H', 'I', 'J', 'K', 'L', 'M', 'N',
-        'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-        'V', 'W', 'X', 'Y', 'Z', '0', '1',
-        '2', '3', '4', '5', '6', '7', '8',
-        '9', ' ', '.', ','
-    };
+    // Contains every UTF-16 code point so we can work with any
+    // character representable in .NET strings.
+    public static readonly char[] Alphabeth = Enumerable
+        .Range(char.MinValue, char.MaxValue + 1)
+        .Select(i => (char)i)
+        .ToArray();
+
+    public static int CharsetSize => Alphabeth.Length;
 
     public static bool IsValid(Message message)
     {
@@ -33,23 +34,13 @@ public static class MessageHelper
 
     private static bool _isMessageValid(string? message)
     {
-        if(message == null) return true;
-
-        bool isValid = true;
-        foreach (char character in message)
-        {
-            if (!Alphabeth.Contains(character))
-            {
-                return false;
-            }
-        }
-
-        return isValid;
+        // Every UTF-16 character is allowed, so any non-null string is valid.
+        return message != null;
     }
 
     private static bool _isKeyValid(int? key)
     {
         if (key == null) return true;
-        return !(key >= Alphabeth.Length);
+        return key >= 0 && key < CharsetSize;
     }
 }

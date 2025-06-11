@@ -2,26 +2,19 @@ namespace Monoalphabetische.Application;
 
 public static class Analyse
 {
-    private static List<Letter> alphabeth = MessageHelper.Alphabeth
-        .Select(c => new Letter(c)).ToList();
+    // Counter for each possible character value
+    private static readonly int[] counters = new int[MessageHelper.CharsetSize];
 
     private static void ResetCounters()
     {
-        foreach(var letter in alphabeth)
-        {
-            letter.Counter = 0;
-        }
+        Array.Clear(counters, 0, counters.Length);
     }
 
     private static void CountCharacters(string message)
     {
         foreach(char character in message)
         {
-            Letter? letter = alphabeth.FirstOrDefault(l => l.Value == character);
-            if(letter != null)
-            {
-                letter.Counter++;
-            }
+            counters[character]++;
         }
     }
 
@@ -34,10 +27,17 @@ public static class Analyse
 
         ResetCounters();
         CountCharacters(message);
-        alphabeth = alphabeth.OrderByDescending(letter => letter.Counter).ToList();
 
-        int indexMostCommonLetter = Array.IndexOf(MessageHelper.Alphabeth, alphabeth[0].Value);
-        int indexLetterE = Array.IndexOf(MessageHelper.Alphabeth, 'E');
+        int indexMostCommonLetter = 0;
+        for (int i = 1; i < counters.Length; i++)
+        {
+            if (counters[i] > counters[indexMostCommonLetter])
+            {
+                indexMostCommonLetter = i;
+            }
+        }
+
+        int indexLetterE = 'E';
         int possibleKey = Math.Abs(indexMostCommonLetter - indexLetterE);
         return possibleKey;
     }

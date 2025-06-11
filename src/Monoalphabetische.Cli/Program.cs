@@ -65,7 +65,7 @@ public partial class Program
         var service = new SubstitutionService();
         Message? result = null;
 
-        Console.WriteLine($"Input text: {options.Message!.ToUpper()}");
+        Console.WriteLine($"Input text: {options.Message}");
 
         try
         {

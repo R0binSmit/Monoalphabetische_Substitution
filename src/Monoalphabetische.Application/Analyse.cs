@@ -2,7 +2,7 @@ namespace Monoalphabetische.Application;
 
 public static class Analyse
 {
-    // Counter for each possible character value
+    // Counter for each printable character defined in MessageHelper
     private static readonly int[] counters = new int[MessageHelper.CharsetSize];
 
     private static void ResetCounters()
@@ -14,7 +14,11 @@ public static class Analyse
     {
         foreach(char character in message)
         {
-            counters[character]++;
+            int index = Array.IndexOf(MessageHelper.Alphabeth, character);
+            if (index >= 0)
+            {
+                counters[index]++;
+            }
         }
     }
 
@@ -37,7 +41,7 @@ public static class Analyse
             }
         }
 
-        int indexLetterE = 'E';
+        int indexLetterE = Array.IndexOf(MessageHelper.Alphabeth, 'E');
         int possibleKey = Math.Abs(indexMostCommonLetter - indexLetterE);
         return possibleKey;
     }

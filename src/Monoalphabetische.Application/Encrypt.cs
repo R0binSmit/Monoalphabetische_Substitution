@@ -33,7 +33,7 @@ public static class Encrypt
 
     private static int getNewAlphabethIndex(char character, int key)
     {
-        int baseIndex = character;
+        int baseIndex = Array.IndexOf(MessageHelper.Alphabeth, character);
         int newIndex = baseIndex + key;
 
         if (newIndex >= MessageHelper.CharsetSize)

@@ -1,14 +1,29 @@
+using System.Globalization;
 using System.Linq;
-﻿namespace Monoalphabetische.Application;
+
+namespace Monoalphabetische.Application;
 
 public static class MessageHelper
 {
-    // Contains every UTF-16 code point so we can work with any
-    // character representable in .NET strings.
+    // Contains all printable characters so encryption/decryption never
+    // produces control codes or surrogates.
     public static readonly char[] Alphabeth = Enumerable
         .Range(char.MinValue, char.MaxValue + 1)
         .Select(i => (char)i)
+        .Where(IsPrintable)
         .ToArray();
+
+    private static bool IsPrintable(char c)
+    {
+        UnicodeCategory category = char.GetUnicodeCategory(c);
+        return category != UnicodeCategory.Control &&
+               category != UnicodeCategory.Format &&
+               category != UnicodeCategory.PrivateUse &&
+               category != UnicodeCategory.Surrogate &&
+               category != UnicodeCategory.OtherNotAssigned &&
+               category != UnicodeCategory.LineSeparator &&
+               category != UnicodeCategory.ParagraphSeparator;
+    }
 
     public static int CharsetSize => Alphabeth.Length;
 
@@ -34,8 +49,17 @@ public static class MessageHelper
 
     private static bool _isMessageValid(string? message)
     {
-        // Every UTF-16 character is allowed, so any non-null string is valid.
-        return message != null;
+        if (message == null) return true;
+
+        foreach (char c in message)
+        {
+            if (!IsPrintable(c))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static bool _isKeyValid(int? key)

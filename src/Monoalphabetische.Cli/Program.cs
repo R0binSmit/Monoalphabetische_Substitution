@@ -1,5 +1,6 @@
 using Monoalphabetische.Application;
 using CommandLine;
+using System.Text;
 
 namespace Monoalphabetische.Cli;
 
@@ -7,6 +8,10 @@ public partial class Program
 {
     public static int Main(string[] args)
     {
+        // Ensure UTF-8 encoding so all printable characters can be displayed
+        // correctly even outside the current console code page.
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
         return Parser.Default.ParseArguments<CliOptions>(args)
             .MapResult(RunWithOptions, _ => 1);
     }
